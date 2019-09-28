@@ -31,15 +31,16 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig', #Add users app
+    'orders.apps.OrdersConfig',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'users.apps.UsersConfig', #Add users app
-    'orders.apps.OrdersConfig',
+ 
  
  ]
 
@@ -73,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'pizza.wsgi.application'
 
+LOGIN_REDIRECT_URL = '/orders/home'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases

@@ -1,18 +1,23 @@
 {% extends "base.html" %}
 
 {% block body %}
-
-
+ 
 
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8"> 
+	 
 	
-	<h2>
-	 	<p>   Order online  </p>
+ 	<h2>
+	 	<p>   Order Here  </p>
 
-		<p><a href="users/signup">Signup</a> </p>
-		<p><a href="users/login">Login</a> </p>
+		 
 		<hr>
 	</h2>
+
+
+<p>
+ 	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
+</p>
+
 </div>
 
 </div> <div class="col-lg-3 col-sm-6" > </div>

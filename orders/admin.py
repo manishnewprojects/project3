@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import order, food, toppings
+
+admin.site.register(order)
+admin.site.register(food)
+admin.site.register(toppings)
+
+ 

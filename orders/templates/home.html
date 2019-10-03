@@ -21,6 +21,7 @@
 		</tr>
 
 	{% for regular_pizza in regular_pizzas %}
+
 	<tr>
 		<td>{{regular_pizza.name}}</td>
 		<td>{{regular_pizza.size}}</td>
@@ -29,6 +30,33 @@
 	{% endfor %}
 </table>
 
+<table> 	
+	 
+		<tr>
+			<th>Item</th>
+			<th>Size</th>
+			<th>Price</th>
+		</tr>
+
+	{% for regular_pizza in regular_pizzas %}
+
+
+	<tr>
+		<td id="item_name"> </td>
+		<td>{{regular_pizza.size}}</td>
+		<td>{{regular_pizza.price}}</td>
+	</tr>
+
+	<script type="text/javascript">
+		
+		name = "{{regular_pizza.name}}";
+		document.querySelector('#item_name').innerHTML += (name+"<br>");
+
+	</script>
+
+	{% endfor %}
+
+</table>
  
 <hr>
 

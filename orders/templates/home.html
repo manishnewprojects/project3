@@ -2,24 +2,46 @@
 
 {% block body %}
  
+<h2> <p> Order here </p>
+	 <p>  Menu  </p> 
+</h2>
+
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+      <p style="width: align; height: align;"> </p>
+</div>
 
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8"> 
-	 
-	
- 	<h2>
-	 	<p>   Order Here  </p>
 
-		 
-		<hr>
-	</h2>
+<table> 	
+	 
+		<tr>
+			<th>Item</th>
+			<th>Size</th>
+			<th>Price</th>
+		</tr>
+
+	{% for regular_pizza in regular_pizzas %}
+	<tr>
+		<td>{{regular_pizza.name}}</td>
+		<td>{{regular_pizza.size}}</td>
+		<td>{{regular_pizza.price}}</td>
+	</tr>
+	{% endfor %}
+</table>
+
+ 
+<hr>
 
 
 <p>
  	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
 </p>
 
+ </div>
+
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+      <p style="width: align; height: align;"> </p>
 </div>
 
-</div> <div class="col-lg-3 col-sm-6" > </div>
 
 {% endblock %}

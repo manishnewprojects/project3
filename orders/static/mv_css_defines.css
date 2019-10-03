@@ -5,17 +5,14 @@
  */
 
 /* Main CSS */
-html {
-  height: 100%;
-}
+
 
 html, body {
   height: 100%;
-  background: lightgrey;
+  background-color: lightgrey;
   }
   
-
-
+ 
 .mv_image {
     max-width: 100%;
     height: auto;
@@ -26,4 +23,26 @@ html, body {
 }
 
 
+.store_text {
+  max-width: 100%;
+    height: auto;
+     border-style: double;
+    border-width: 5px; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+ 
+
+td  {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+th  {
+  text-align: center;
+  background-color: #11dddd;
+    padding: 30px;
+
+}
  

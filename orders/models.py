@@ -16,7 +16,7 @@ class Order(models.Model):
 
 class Food(models.Model):
 	food_type   = models.CharField(max_length=20)
-	name        = models.CharField(max_length=20)
+	name        = models.CharField(max_length=40)
 	sm_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 	lg_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 	reg_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
@@ -24,4 +24,59 @@ class Food(models.Model):
 	def __str__(self):
 		return f"{self.food_type} {self.name}"
 
- 
+
+class Regular_Pizza(models.Model):
+	name        = models.CharField(max_length=20)
+	size		= models.CharField(max_length=3, blank=True)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.size} {self.price}"
+
+class Sicilian_Pizza(models.Model):
+	name        = models.CharField(max_length=20)
+	size		= models.CharField(max_length=3, blank=True)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.size} {self.price}"
+
+
+
+class Topping(models.Model):
+	name        = models.CharField(max_length=20)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.price}"
+
+
+class Subs(models.Model):
+	name        = models.CharField(max_length=20)
+	size		= models.CharField(max_length=3, blank=True)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.size} {self.price}"
+
+class Pasta(models.Model):
+	name        = models.CharField(max_length=20)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.price}"
+
+class Salads(models.Model):
+	name        = models.CharField(max_length=20)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.price}"
+
+class Dinner_Platters(models.Model):
+	name        = models.CharField(max_length=20)
+	size		= models.CharField(max_length=3, blank=True)
+	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+	def __str__(self):
+		return f"{self.name} {self.size} {self.price}"

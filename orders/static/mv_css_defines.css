@@ -10,6 +10,8 @@
 html, body {
   height: 100%;
   background-color: lightgrey;
+  padding: 14px;
+  text-align: center;
   }
   
  
@@ -33,16 +35,24 @@ html, body {
 }
  
 
-td  {
-  border: 1px solid #dddddd;
-  text-align: center;
-  padding: 8px;
+table {
+  width: 100%;
+  margin: 20px auto;
+  table-layout: auto;
+}
+ 
+
+table,
+
+th {
+  border-collapse: collapse;
+  background-color:  skyblue;
 }
 
-th  {
-  text-align: center;
-  background-color: #11dddd;
-    padding: 30px;
-
+th,
+td {
+  padding: 10px;
+  border: solid 1px;
+  text-align: left;
 }
  

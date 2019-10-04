@@ -12,29 +12,54 @@
 
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8"> 
 
+<script type="text/javascript">
+	food_type = ""
+</script>
+
 <table> 	
 	 
-		<tr>
-			<th>Item</th>
-			<th>Size</th>
-			<th>Price</th>
-		</tr>
 
 	{% for food in food_list %}
 
+	<tr>
+		<th id="foodtype.{{food.id}}"></th>
+		<th id="sm_header.{{food.id}}"> </th>
+		<th id="lg_header.{{food.id}}"> </th>
+	</tr>
+
+	<script type='text/javascript'>
+		if (food_type != "{{food.food_type}}") 
+		{
+			document.getElementById('foodtype.{{food.id}}').innerHTML = "{{food.food_type}}";
+ 			if ( "{{food.sm_price}}" != "None" ) {
+				document.getElementById('sm_header.{{food.id}}').innerHTML = "Small";
+				document.getElementById('lg_header.{{food.id}}').innerHTML = "Large";
+			}
+		}
+  	</script>
+
 	 
 	<tr>
-		<td id="item_name"> </td>
-		<td>{{food.name}}</td>
-		<td>{{food.sm_price}}</td>
+		<td id="item_name.{{food.id}}"> </td>
+		<td id="item_sm_price.{{food.id}}"></td>
+		<td id="item_lg_price.{{food.id}}"> </td>
+ 
 	</tr>
 
 	<script type="text/javascript">
 		
-		name = "{{food.name}}";
-		document.querySelector('#item_name').innerHTML += (name+"<br>");
+ 		document.getElementById('item_name.{{food.id}}').innerHTML = "{{food.name}}";
+ 		if ( "{{food.sm_price}}" != "None" ) {
+	 		document.getElementById('item_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 		document.getElementById('item_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+ 		}
+ 		if ( "{{food.reg_price}}" != "None" ) {
+ 		document.getElementById('item_sm_price.{{food.id}}').innerHTML = "&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"&nbsp"+"{{food.reg_price}}";
+		}
+		food_type = "{{food.food_type}}";
 
 	</script>
+ 
 
 	{% endfor %}
 

@@ -9,4 +9,6 @@ urlpatterns = [
 
     path('logged_out', views.logged_out, name='logged_out'),
  
+ 	path('add_to_cart', views.add_to_cart, name='add_to_cart'),
+
 ]

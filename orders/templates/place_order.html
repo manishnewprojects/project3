@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block body %}
+  
+<script type="text/javascript">
+
+/***********************************************
+* Limit number of checked checkboxes script- by JavaScript Kit (www.javascriptkit.com)
+* This notice must stay intact for usage
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and 100s more
+***********************************************/
+
+function checkboxlimit(checkgroup, limit){
+	var checkgroup=checkgroup
+	var limit=limit
+	for (var i=0; i<checkgroup.length; i++){
+		checkgroup[i].onclick=function(){
+		var checkedcount=0
+		for (var i=0; i<checkgroup.length; i++)
+			checkedcount+=(checkgroup[i].checked)? 1 : 0
+		if (checkedcount>limit){
+			alert("You can only select a maximum of "+limit+" checkboxes")
+			this.checked=false
+			}
+		}
+	}
+}
+
+var pizza_result=0
+
+function myFunction(optpizza) {
+	console.log("optpizza", optpizza )
+  	pizza_result = optpizza;
+}
+
+</script>
+
+
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+      <p style="width: align; height: align;"> </p>
+</div>
+
+<div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8"> 
+
+<h2>Place order below </h2>
+
+<table class="table table-responsive"> 	
+	 
+	<tr>
+		<th> Regular Pizza</th>
+		<th> Small </th>
+		<th> Large </th>
+
+	</tr>
+
+	{% for food in regular_pizza_list %}
+	<tr>
+	 
+	  	<td id="reg_pizza_name.{{food.id}}">
+
+		<td>
+             <div class="radio" >
+                 <label><input type="radio" name="optpizza" onclick="myFunction(this.value)" value={{food.id}} > <p id="reg_pizza_sm_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+		<td>
+             <div class="radio" >
+                 <label><input type="radio" name="optpizza" onclick="myFunction(this.value)" value={{food.id}} > <p id="reg_pizza_lg_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+ 	</tr>
+
+	<script type="text/javascript">
+ 		document.getElementById('reg_pizza_name.{{food.id}}').innerHTML = "{{food.name}}";
+	 	document.getElementById('reg_pizza_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 	document.getElementById('reg_pizza_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+	</script>
+	{% endfor %}
+
+	<tr>
+		<th> Sicilian Pizza</th>
+		<th> Small </th>
+		<th> Large </th>
+	</tr>
+
+	{% for food in sicilian_pizza_list %}
+	<tr>
+		<td id="sic_pizza_name.{{food.id}}"> </td>
+		<td>
+             <div class="radio" id="pizzatype">
+                 <label><input type="radio" name="optpizza" onclick="myFunction(this.value)" value={{food.id}}> <p id="sic_pizza_sm_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+		<td>
+             <div class="radio" id="pizzatype" >
+                 <label><input type="radio" name="optpizza" onclick="myFunction(this.value)" value={{food.id}}> <p id="sic_pizza_lg_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+	</tr>
+
+
+	<script type="text/javascript">
+  		document.getElementById('sic_pizza_name.{{food.id}}').innerHTML = "{{food.name}}";
+	 	document.getElementById('sic_pizza_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 	document.getElementById('sic_pizza_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+	
+	
+ </script>
+
+	{% endfor %}
+ 
+	<tr>
+		<th> Toppings </th>
+		<th>  </th>
+		<th>   </th>
+	</tr>
+
+	<form id="world" name="world">
+	{% for food in topping_list %}
+	<tr>
+		<td > </td>
+
+		<td>
+             <div class="checkbox" >
+                 <label><input type="checkbox" name="opttoppings" > <p id="t_name.{{food.id}}"></p> </label>
+                 
+
+             </div>
+        </td>
+
+		<td > </td>
+	</tr>
+
+	<script type="text/javascript">
+  		document.getElementById('t_name.{{food.id}}').innerHTML = "{{food.name}}";
+	</script>
+ 	
+	{% endfor %}
+
+	
+	</form>
+	
+<script type="text/javascript">
+		console.log("resl==",pizza_result)
+		checkboxlimit(document.forms.world.opttoppings, (pizza_result-1))
+	</script>
+
+</table>
+ 
+<hr>
+	  
+<form action="{% url 'add_to_cart' %}" method="POST" id="order_form" name="order_form">
+	 	<!-- {% csrf_token %} -->
+	 	<select id="order_form" name="order_form">
+             <option id="order_form" name="order_form" value = "{{ regular_pizza_list }}"></option>
+        </select>
+      <button type="submit" > Place order </button>
+
+<table>
+        <tr>
+            <th>User</th>
+            <th>title</th>
+            <th>Total Price</th>
+        </tr>
+        
+        <tr>
+            <td>{{ cart.user }}</td>
+            <td>{{ cart.title }}</td>
+            <td>{{ cart.price }}</td>
+        </tr>
+        
+    </table>
+</form>
+
+
+<p>
+ 	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
+</p>
+
+ </div>
+
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+      <p style="width: align; height: align;"> </p>
+</div>
+
+
+{% endblock %}

@@ -20,8 +20,10 @@ from . import views
  
 
 urlpatterns = [
-    #path('', include('orders.urls')),
+
     path('', views.index, name='index'),
+
+ 
 
     path('users/', include('users.urls')),
     path('orders/', include('orders.urls')),

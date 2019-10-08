@@ -5,10 +5,6 @@ from django.shortcuts import render, redirect
 from django import forms
 from django.contrib.auth.models import User
 
-@login_required
-def home(request):
-    return render(request, 'home.html')
-
 
 def signup(request):
     if request.method == 'POST':
@@ -18,7 +14,6 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-            request.session['user']  = user
  
             login(request, user)
             return redirect('login')

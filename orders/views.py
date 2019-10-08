@@ -4,11 +4,14 @@ import json
 from django.core.serializers.json import DjangoJSONEncoder
 from .models import Order, Regular_Pizza, Sicilian_Pizza, Topping, Sub, Salad, Pasta, Dinner_Platter, Cart 
 from django.contrib.auth.models import User
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.decorators import login_required
 
 #from cart.cart import Cart
+ 
 
-
-def home(request):
+@login_required
+def place_order(request):
 	reg_pizza 	   			= Regular_Pizza.objects.all().values()
 	reg_pizza_list 			= [entry for entry in reg_pizza]
 
@@ -18,7 +21,7 @@ def home(request):
 	topping 				= Topping.objects.all().values()
 	topping_list 			= [entry for entry in topping]
  
-	return render(request, 'home.html',
+	return render(request, 'place_order.html',
 		{
 		'regular_pizza_list':reg_pizza_list, 
 		'sicilian_pizza_list':sicilian_pizza_list,
@@ -28,7 +31,10 @@ def home(request):
 
 def logged_out(request):
     return render(request, 'logged_out.html')
- 
+
+def online_access(request):
+    return render(request, 'online_access.html')
+
 def add_to_cart(request):
 	if request.method == 'POST':
 		my_user = User.objects.get(username = request.user)

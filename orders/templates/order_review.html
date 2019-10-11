@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block body %}
+  
+ 
+<div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8">
+<h2>Review order   </h2>
+ 
+<hr>
+	  
+
+<table>
+        <tr>
+            <th>User</th>
+            <th>title</th>
+            <th>Total Price</th>
+        </tr>
+        
+        <tr>
+            <td>{{ cart.user }}</td>
+            <td>{{ cart.title }}</td>
+            <td>{{ cart.price }}</td>
+        </tr>
+        
+    </table>
+</form>
+
+
+<p>
+ 	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
+</p>
+
+ </div>
+
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+      <p style="width: align; height: align;"> </p>
+</div>
+
+
+{% endblock %}

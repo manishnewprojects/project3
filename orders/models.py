@@ -22,7 +22,8 @@ class Cart(models.Model):
 
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	title = models.CharField(max_length = 100)
-	price = models.DecimalField(max_digits = 6, decimal_places = 2)
+	price = models.CharField(max_length = 100)
+	#price = models.DecimalField(max_digits = 6, decimal_places = 2)
 
 	
 	def __str__(self):
@@ -35,7 +36,7 @@ class Regular_Pizza(models.Model):
 	lg_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
  
 	def __str__(self):
-		return f"{self.name}"
+		return f"{self.name},{self.sm_price},{self.lg_price} "
 
 class Sicilian_Pizza(models.Model):
 	name        = models.CharField(max_length=40)
@@ -43,15 +44,14 @@ class Sicilian_Pizza(models.Model):
 	lg_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
  
 	def __str__(self):
-		return f"{self.name}"
+		return f"{self.name},{self.sm_price},{self.lg_price} "
 
 
 class Topping(models.Model):
 	name        = models.CharField(max_length=20)
-	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
 	def __str__(self):
-		return f"{self.name} {self.price}"
+		return f"{self.name}"
 
 
 class Sub(models.Model):
@@ -60,10 +60,10 @@ class Sub(models.Model):
 	lg_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
  
 	def __str__(self):
-		return f"{self.name}"
+		return f"{self.name},{self.sm_price},{self.lg_price} "
 
 class Pasta(models.Model):
-	name        = models.CharField(max_length=20)
+	name        = models.CharField(max_length=30)
 	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
 	def __str__(self):
@@ -82,7 +82,7 @@ class Dinner_Platter(models.Model):
 	lg_price	= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
  
 	def __str__(self):
-		return f"{self.name}"
+		return f"{self.name},{self.sm_price},{self.lg_price} "
 
 
 

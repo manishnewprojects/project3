@@ -6,26 +6,21 @@ from .models import Order, Regular_Pizza, Sicilian_Pizza, Topping, Sub, Salad, P
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.http.request import QueryDict, MultiValueDict
+
 
 #from cart.cart import Cart
  
 
 @login_required
 def place_order(request):
-	reg_pizza 	   			= Regular_Pizza.objects.all().values()
-	reg_pizza_list 			= [entry for entry in reg_pizza]
-
-	sicilian_pizza 			= Sicilian_Pizza.objects.all().values()
-	sicilian_pizza_list 	= [entry for entry in sicilian_pizza]
- 
-	topping 				= Topping.objects.all().values()
-	topping_list 			= [entry for entry in topping]
+	 
  
 	return render(request, 'place_order.html',
 		{
-		'regular_pizza_list':reg_pizza_list, 
-		'sicilian_pizza_list':sicilian_pizza_list,
-		'topping_list':topping_list,
+		'regular_pizza_list':Regular_Pizza.objects.all(), 
+		'sicilian_pizza_list':Sicilian_Pizza.objects.all(),
+		'topping_list':Topping.objects.all(),
 		}
 	)
 
@@ -38,12 +33,18 @@ def online_access(request):
 def add_to_cart(request):
 	if request.method == 'POST':
 		my_user = User.objects.get(username = request.user)
-		food = "test"
-		price =5
+		ordered_food=request.POST
+		food=[]
+		price=[]
+		for key, value in dict(ordered_food).items():  # ---> dict(query_dict)
+			print(key, value) 
+			food.append(value)  
+			price.append(value)
+			 
 		cart = Cart(user = my_user, title = food, price = price)
 		print("cart===",cart)	
 		cart.save()
-		return render(request, 'home.html', {'cart': cart})
+		return render(request, 'order_review.html', {'cart': cart})
 
 def remove_from_cart(request, order_id):
     product = Product.objects.get(id=order_id)

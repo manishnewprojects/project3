@@ -37,12 +37,10 @@ html, body {
 
 table {
   width: 100%;
-  margin: 20px auto;
+  margin: auto;
   table-layout: auto;
 }
  
-
-table,
 
 th {
   border-collapse: collapse;
@@ -51,8 +49,7 @@ th {
 
 th,
 td {
-  padding: 10px;
-  border: solid 1px;
+   border: solid 1px;
   text-align: left;
 }
  

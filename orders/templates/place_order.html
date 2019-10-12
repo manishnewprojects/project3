@@ -40,10 +40,12 @@ function checkboxlimit(checkgroup, limit){
 function pizzatype(optfood) {
 
 	ordered_items_count+=1
-	food_order[ordered_items_count]={name:optfood, price:10}
+	var chars = optfood.split(',');
+ 	food_order[ordered_items_count]={name:chars[0], price:parseFloat(chars[1])}
 	
-	checkboxlimit(document.forms.world.opttoppings, (2))
+	checkboxlimit(document.forms.world.opttoppings, chars[2])
 
+ 
 }
  
 
@@ -69,12 +71,12 @@ function pizzatype(optfood) {
 
 		<td>
              <div class="radio" >
-                 <label><input type="radio" name="optpizza" onclick="pizzatype( this.value )" value="{{food}}, {{food.sm_price}} "> <p id="reg_pizza_sm_price.{{food.id}}"></p> </label>
+                 <label><input type="radio" name="optpizza" onclick="pizzatype( this.value )" value="{{food}}, {{food.sm_price}}, {{food.extras}}"> <p id="reg_pizza_sm_price.{{food.id}}"></p> </label>
              </div>
         </td>
 		<td>
              <div class="radio" >
-                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}" > <p id="reg_pizza_lg_price.{{food.id}}"></p> </label>
+                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}" > <p id="reg_pizza_lg_price.{{food.id}}"></p> </label>
              </div>
         </td>
  	</tr>
@@ -97,12 +99,12 @@ function pizzatype(optfood) {
 		<td id="sic_pizza_name.{{food.id}}"> </td>
 		<td>
              <div class="radio" id="pizzatype">
-                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value={{food}}> <p id="sic_pizza_sm_price.{{food.id}}"></p> </label>
+                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}"> <p id="sic_pizza_sm_price.{{food.id}}"></p> </label>
              </div>
         </td>
 		<td>
              <div class="radio" id="pizzatype" >
-                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value={{food}}> <p id="sic_pizza_lg_price.{{food.id}}"></p> </label>
+                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}"> <p id="sic_pizza_lg_price.{{food.id}}"></p> </label>
              </div>
         </td>
 	</tr>
@@ -147,25 +149,29 @@ function pizzatype(optfood) {
  
 </table>
 
+ 
 <button onclick='send_value()'> Add to order </button>
 
+
 <script>
+
  function send_value(){
 
              $.ajax({
              url: 'add_to_cart',
              method : 'POST',
-             data: {food_order},
+             data: {'food_order':food_order},
              beforeSend: function() {
               // things to do before submit
              },
              success: function(response) {
+             	        window.location = "{% url 'view_order' %}"; 
 
-               {{render(request, 'order_review.html', {'cart': cart})}}
-              }
+                }
               });
 }
 </script>
+
  
 <hr>
 	   

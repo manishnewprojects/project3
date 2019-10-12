@@ -30,19 +30,27 @@ def logged_out(request):
 def online_access(request):
     return render(request, 'online_access.html')
 
+def view_order(request):
+
+	cart = Cart.objects.filter(user = request.user)
+
+	return render(request, 'order_review.html', {'cart': cart})
+
 def add_to_cart(request):
 	if request.method == 'POST':
 		my_user = User.objects.get(username = request.user)
-		ordered_food=request.POST
+		ordered_food=request.POST 
+ 
+		print("order rcvd", ordered_food)
 		food=[]
 		price=[]
 		for key, value in dict(ordered_food).items():  # ---> dict(query_dict)
-			print(key, value) 
+			print("key--",key, "value>>",value) 
 			food.append(value)  
 			price.append(value)
+		
 			 
 		cart = Cart(user = my_user, title = food, price = price)
-		print("cart===",cart)	
 		cart.save()
 		return render(request, 'order_review.html', {'cart': cart})
 

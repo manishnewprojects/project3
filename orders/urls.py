@@ -15,4 +15,6 @@ urlpatterns = [
 
     path('home', views.place_order, name='home'),
 
+    path('view_order', views.view_order, name='view_order'),
+
 ]

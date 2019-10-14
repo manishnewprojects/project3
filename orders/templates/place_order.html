@@ -26,8 +26,10 @@ function checkboxlimit(checkgroup, limit){
 			this.checked=false
 			}
 			else {
-				ordered_items_count+=1
-				food_order[ordered_items_count]={name:this.value, price:0}
+ 				food_order.push({"food":this.value,
+ 				"price":0
+				})
+
  			}
 
 			 
@@ -39,13 +41,17 @@ function checkboxlimit(checkgroup, limit){
 
 function pizzatype(optfood) {
 
+	console.log("GOT ODER", optfood)
 	ordered_items_count+=1
 	var chars = optfood.split(',');
- 	food_order[ordered_items_count]={name:chars[0], price:parseFloat(chars[1])}
-	
-	checkboxlimit(document.forms.world.opttoppings, chars[2])
 
+ 	food_order.push({"food":chars[0]+" "+chars[1],
+ 	"price":chars[2]
+	})
+
+	checkboxlimit(document.forms.world.opttoppings, chars[3])
  
+
 }
  
 
@@ -133,7 +139,7 @@ function pizzatype(optfood) {
 		<td > </td>
 		<td>
              <div class="checkbox" >
-                 <label><input type="checkbox" name="opttoppings" value="{{food.name}}"> <p id="t_name.{{food.id}}"></p> </label>
+                 <label><input type="checkbox" name="opttoppings" value="{{food}}"> <p id="t_name.{{food.id}}"></p> </label>
              </div>
         </td>
 		<td > </td>
@@ -157,10 +163,11 @@ function pizzatype(optfood) {
 
  function send_value(){
 
+ 			
              $.ajax({
              url: 'add_to_cart',
              method : 'POST',
-             data: {'food_order':food_order},
+             data: {food_order},
              beforeSend: function() {
               // things to do before submit
              },

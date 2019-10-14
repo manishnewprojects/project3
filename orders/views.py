@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http.request import QueryDict, MultiValueDict
+import ast
 
 
 #from cart.cart import Cart
@@ -33,25 +34,25 @@ def online_access(request):
 def view_order(request):
 
 	cart = Cart.objects.filter(user = request.user)
-
-	return render(request, 'order_review.html', {'cart': cart})
+	print("CART==", cart)
+	return render(request, 'order_review.html', {'cart_list': cart})
 
 def add_to_cart(request):
 	if request.method == 'POST':
 		my_user = User.objects.get(username = request.user)
-		ordered_food=request.POST 
- 
-		print("order rcvd", ordered_food)
-		food=[]
-		price=[]
-		for key, value in dict(ordered_food).items():  # ---> dict(query_dict)
-			print("key--",key, "value>>",value) 
-			food.append(value)  
-			price.append(value)
+		order_dict=ast.literal_eval(json.dumps(request.POST))
 		
-			 
-		cart = Cart(user = my_user, title = food, price = price)
-		cart.save()
+		food=""
+		price=-1
+		for key, value in dict(order_dict).items():  # ---> dict(query_dict)
+			price=-1
+			if key.find("[food]") != -1:
+				food=value 
+			else:
+				price=float(value)
+			if price!=-1:
+				cart = Cart(user = my_user, item = food, price = price)
+				cart.save()
 		return render(request, 'order_review.html', {'cart': cart})
 
 def remove_from_cart(request, order_id):

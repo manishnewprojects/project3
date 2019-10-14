@@ -1,7 +1,8 @@
 {% extends "base.html" %}
 
 {% block body %}
-  
+
+<script type="text/javascript">total=0</script>
  
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8">
 <h2>Review order   </h2>
@@ -12,16 +13,23 @@
 <table>
         <tr>
             <th>User</th>
-            <th>title</th>
-            <th>Total Price</th>
+            <th>Item</th>
+            <th>Price</th>
         </tr>
+        {% for cart in cart_list %}
          <tr>
             <td>{{ cart.user  }}</td>
-            <td>{{ cart.title }}</td>
+            <td>{{ cart.item }}</td>
             <td>{{ cart.price }}</td>
         </tr>
-     </table>
+        <script type="text/javascript"> total += parseFloat("{{cart.price}}")  </script>
+        {%endfor %}
+
+</table>
  
+Total price: $<h2 id="tprice"></h2>
+
+<script type="text/javascript"> document.getElementById('tprice').innerHTML = total; </script>
 
 
 <p>

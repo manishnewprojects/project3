@@ -7,6 +7,18 @@ from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 
 from datetime import datetime
+
+class Food(models.Model):
+	category    = models.CharField(max_length=20)
+	name        = models.CharField(max_length=40)
+	flavor      = models.CharField(max_length=20, blank=True, null=True)
+	extra_num	= models.DecimalField(max_digits=5, decimal_places=0, blank=True, null=True)
+	extra_desc  = models.CharField(max_length=20, blank=True, null=True)
+	size        = models.CharField(max_length=3, blank=True, null=True)
+	price		= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+ 
+	def __str__(self):
+		return f"{self.category}"
   
 class Order(models.Model):
 	user_rec    = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -23,9 +35,9 @@ class Cart(models.Model):
 	user = models.ForeignKey(User, on_delete = models.CASCADE)
 	item = models.CharField(max_length = 100)
 	price = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-	
+
 	def __str__(self):
-		return f"{self.title}, {self.price}"
+		return f"{self.item}, {self.price}"
 
 
 class Regular_Pizza(models.Model):
@@ -35,7 +47,7 @@ class Regular_Pizza(models.Model):
 	extras		= models.DecimalField(max_digits=5, decimal_places=0, blank=True, null=True)
  
 	def __str__(self):
-		return f"{self.name}"
+ 		return (f"{self.__class__.__name__}"+","+f"{self.name}")
 
 class Sicilian_Pizza(models.Model):
 	name        = models.CharField(max_length=40)
@@ -44,14 +56,14 @@ class Sicilian_Pizza(models.Model):
 	extras		= models.DecimalField(max_digits=5, decimal_places=0, blank=True, null=True)
 
 	def __str__(self):
-		return f"{self.name}"
+		return (f"{self.__class__.__name__}"+","+f"{self.name}")
 
 
 class Topping(models.Model):
 	name        = models.CharField(max_length=20)
 
 	def __str__(self):
-		return f"{self.name}"
+		return ("+topping:"+f" {self.name}")
 
 
 class Sub(models.Model):
@@ -83,6 +95,8 @@ class Dinner_Platter(models.Model):
  
 	def __str__(self):
 		return f"{self.name},{self.sm_price},{self.lg_price} "
+
+
 
 
 

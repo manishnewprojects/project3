@@ -2,15 +2,47 @@
 
 {% block body %}
  
-<h2> <p> <a href="{% url 'online_access' %}"> Order here </a> </p>
+<h2> <p> <a href="{% url 'online_access' %}"> Click to Order </a> </p>
 	 <p>  Menu  </p> 
 </h2>
+
 
 <div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
       <p style="width: align; height: align;"> </p>
 </div>
 
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8"> 
+
+<table>
+{%for food in pizza_list %}
+<tr>
+		<th id="category_title" style="font-weight: bold "></th>
+		<th> Small </th>
+		<th> Large </th>
+</tr>
+
+	<script type="text/javascript">
+ 		document.getElementById('category_title').innerHTML = "{{food.name}}";
+	</script>
+
+<tr>
+		<td id="pizza_list.name{{food.id}}"> </td>
+		<td id="pizza_list.flavor{{food.id}}"></td>
+		<td id="pizza_list.price{{food.id}}"> </td>
+	</tr>
+	 
+
+	<script type="text/javascript">
+ 		document.getElementById('pizza_list.name{{food.id}}').innerHTML = "{{food.flavor}}";
+	 	document.getElementById('pizza_list.flavor{{food.id}}').innerHTML = "{{food.size}}";
+	 	document.getElementById('pizza_list.price{{food.id}}').innerHTML = "{{food.price}}";
+	</script>
+
+{%endfor%}
+
+</table>
+
+
 
 <table> 	
 	 

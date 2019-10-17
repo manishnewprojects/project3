@@ -13,6 +13,8 @@ urlpatterns = [
 
  	path('place_order', views.place_order, name='place_order'),
 
+ 	path('final_order', views.final_order, name='final_order'),
+
     path('home', views.place_order, name='home'),
 
     path('view_order', views.view_order, name='view_order'),

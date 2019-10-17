@@ -22,14 +22,16 @@
             <td>{{ cart.item }}</td>
             <td>{{ cart.price }}</td>
         </tr>
-        <script type="text/javascript"> total += parseFloat("{{cart.price}}")  </script>
         {%endfor %}
 
 </table>
  
-Total price: $<h2 id="tprice"></h2>
+<h2>Total price: $<span id="tprice"></span> </h2>
 
-<script type="text/javascript"> document.getElementById('tprice').innerHTML = total; </script>
+<script type="text/javascript"> document.getElementById('tprice').innerHTML = "{{cart_total}}" ; </script>
+
+
+<button onclick="location.href='{% url 'final_order' %}'"> Place final order</button>
 
 
 <p>
@@ -38,7 +40,7 @@ Total price: $<h2 id="tprice"></h2>
 
  </div>
 
-<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center;"> 
       <p style="width: align; height: align;"> </p>
 </div>
 

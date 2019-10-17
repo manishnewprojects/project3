@@ -10,7 +10,7 @@
 * This notice must stay intact for usage
 * Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and 100s more
 ***********************************************/
-var food_order=[], ordered_items_count=-1
+var food_order=[], prev_food=""
 
 function checkboxlimit(checkgroup, limit){
 	var checkgroup=checkgroup
@@ -23,6 +23,7 @@ function checkboxlimit(checkgroup, limit){
 			checkedcount+=(checkgroup[i].checked)? 1 : 0
 		if (checkedcount>limit){
 			alert("You can only select a maximum of "+limit+" toppings")
+			food_order.pop()
 			this.checked=false
 			}
 			else {
@@ -38,23 +39,23 @@ function checkboxlimit(checkgroup, limit){
 }
  
 
+function foodtype(optfood) {
 
-function pizzatype(optfood) {
-
-	console.log("GOT ODER", optfood)
-	ordered_items_count+=1
 	var chars = optfood.split(',');
+	
+	if ( (chars[0]==prev_food) || (chars[0].includes("Pizza")) ) {
+		food_order.pop()
+	}
 
  	food_order.push({"food":chars[0]+" "+chars[1],
  	"price":chars[2]
 	})
-
+ 	prev_food = chars[0]
 	checkboxlimit(document.forms.world.opttoppings, chars[3])
  
 
 }
  
-
 
 </script>
  
@@ -62,7 +63,7 @@ function pizzatype(optfood) {
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8">
 <h2>Place order below </h2>
 
-<table class="table table-responsive"> 	
+<table> 	
 	<tr>
 		<th> Regular Pizza</th>
 		<th> Small </th>
@@ -77,12 +78,12 @@ function pizzatype(optfood) {
 
 		<td>
              <div class="radio" >
-                 <label><input type="radio" name="optpizza" onclick="pizzatype( this.value )" value="{{food}}, {{food.sm_price}}, {{food.extras}}"> <p id="reg_pizza_sm_price.{{food.id}}"></p> </label>
+                 <label><input type="radio" name="optpizza" onclick="foodtype( this.value )" value="{{food}}, {{food.sm_price}}, {{food.extras}}"> <p id="reg_pizza_sm_price.{{food.id}}"></p> </label>
              </div>
         </td>
 		<td>
              <div class="radio" >
-                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}" > <p id="reg_pizza_lg_price.{{food.id}}"></p> </label>
+                 <label><input type="radio" name="optpizza" onclick="foodtype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}" > <p id="reg_pizza_lg_price.{{food.id}}"></p> </label>
              </div>
         </td>
  	</tr>
@@ -104,13 +105,13 @@ function pizzatype(optfood) {
 	<tr>
 		<td id="sic_pizza_name.{{food.id}}"> </td>
 		<td>
-             <div class="radio" id="pizzatype">
-                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}"> <p id="sic_pizza_sm_price.{{food.id}}"></p> </label>
+             <div class="radio">
+                 <label><input type="radio" name="optpizza" onclick="foodtype(this.value)" value="{{food}}, {{food.sm_price}}, {{food.extras}}"> <p id="sic_pizza_sm_price.{{food.id}}"></p> </label>
              </div>
         </td>
 		<td>
-             <div class="radio" id="pizzatype" >
-                 <label><input type="radio" name="optpizza" onclick="pizzatype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}"> <p id="sic_pizza_lg_price.{{food.id}}"></p> </label>
+             <div class="radio" >
+                 <label><input type="radio" name="optpizza" onclick="foodtype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}"> <p id="sic_pizza_lg_price.{{food.id}}"></p> </label>
              </div>
         </td>
 	</tr>
@@ -126,7 +127,7 @@ function pizzatype(optfood) {
 
 	{% endfor %}
  
-	<tr>
+ 	<tr>
 		<th> Toppings </th>
 		<th>  </th>
 		<th>   </th>
@@ -152,11 +153,124 @@ function pizzatype(optfood) {
 	
 	</form>
 
+
+<tr>
+		<th> Sub </th>
+		<th> Small </th>
+		<th> Large </th>
+	</tr>
+
+{% for food in subs_list %}
+	<tr>
+		<td id="sfood_name.{{food.id}}"> </td>
+		<td>
+             <div class="radio" id="foodtype">
+                 <label><input type="radio" name="optsub" onclick="foodtype(this.value)" value="{{food}}, {{food.sm_price}}, {{food.extras}}"> <p id="sfood_sm_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+		<td>
+             <div class="radio" id="foodtype" >
+                 <label><input type="radio" name="optsub" onclick="foodtype(this.value)" value="{{food}}, {{food.lg_price}}, {{food.extras}}"> <p id="sfood_lg_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+	</tr>
+
+
+	<script type="text/javascript">
+  		document.getElementById('sfood_name.{{food.id}}').innerHTML = "{{food.name}}";
+	 	document.getElementById('sfood_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 	document.getElementById('sfood_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+	
+	
+ 	</script>
+
+{% endfor %}
+
+<tr>
+		<th> Pasta </th>
+		<th> (One size)  </th>
+		<th></th>
+	</tr>
+
+{% for food in pasta_list %}
+	<tr>
+		<td id="pfood_name.{{food.id}}"> </td>
+ 		<td>
+             <div class="radio" id="foodtype">
+                 <label><input type="radio" name="optpasta" onclick="foodtype(this.value)" value="{{food}}, {{food.price}}"> <p id="pfood_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+		<td>  </td>
+	</tr>
+
+ 	<script type="text/javascript">
+  		document.getElementById('pfood_name.{{food.id}}').innerHTML = "{{food.name}}";
+ 	 	document.getElementById('pfood_price.{{food.id}}').innerHTML = "{{food.price}}";
+ 	</script>
+
+{% endfor %}
+
+<tr>
+		<th> Salads </th>
+		<th> (One size)    </th>
+		<th>   </th>
+	</tr>
+
+{% for food in salads_list %}
+	<tr>
+		<tr>
+		<td id="safood_name.{{food.id}}"> </td>
+		<td>
+             <div class="radio" id="foodtype">
+                 <label><input type="radio" name="optsalad" onclick="foodtype(this.value)" value="{{food}}, {{food.price}}"> <p id="safood_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+		<td> </td>
+	</tr>
+	</tr>
+
+ 	<script type="text/javascript">
+  		document.getElementById('safood_name.{{food.id}}').innerHTML = "{{food.name}}";
+ 	 	document.getElementById('safood_price.{{food.id}}').innerHTML = "{{food.price}}";
+ 	</script>
+
+{% endfor %}
  
+<tr>
+		<th> Dinner Platters </th>
+		<th> Small    </th>
+		<th>  Large </th>
+	</tr>
+
+{% for food in dinner_list %}
+	<tr>
+		<tr>
+		<td id="dfood_name.{{food.id}}"> </td>
+		 
+		<td>
+             <div class="radio" id="dintype">
+                 <label><input type="radio" name="optsub" onclick="foodtype(this.value)" value="{{food}}, {{food.sm_price}}"> <p id="dfood_sm_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+		<td>
+             <div class="radio" id="dintype" >
+                 <label><input type="radio" name="optsub" onclick="foodtype(this.value)" value="{{food}}, {{food.lg_price}}"> <p id="dfood_lg_price.{{food.id}}"></p> </label>
+             </div>
+        </td>
+	</tr>
+
+ 	<script type="text/javascript">
+  		document.getElementById('dfood_name.{{food.id}}').innerHTML = "{{food.name}}";
+	 	document.getElementById('dfood_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 	document.getElementById('dfood_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+ 	</script>
+
+{% endfor %}
+
 </table>
 
  
-<button onclick='send_value()'> Add to order </button>
+<button onclick='send_value()'> Place order (Review on next page)</button>
 
 
 <script>
@@ -190,7 +304,7 @@ function pizzatype(optfood) {
 
  </div>
 
-<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center;"> 
       <p style="width: align; height: align;"> </p>
 </div>
 

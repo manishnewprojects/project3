@@ -27,27 +27,26 @@
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
       <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-
-
+ 
 </head>
 
-<body style="text-align: center; background-color:#E8E8E8">
-      <header style="text-align: center; background-color:#E8E8E8">
+<body style="text-align: center">
+      <header style="text-align: center;  ">
             
-      {%  if request.user.is_authenticated    %}
-      <h1><a href="{% url 'home' %}"> Pizza 3point14 </a></h1>
-      <a href="{% url 'home' %}"> <img class="mv_image" src="../static/images/delish-pizza.jpg" alt="Pizza 3point14"/> </a>
+            {%  if request.user.is_authenticated    %}
+            <h1><a href="{% url 'home' %}"> Pizza 3point14 </a></h1>
+            <a href="{% url 'home' %}"> <img class="mv_image" src="../static/images/delish-pizza.jpg" alt="Pizza 3point14"/> </a>
 
-      {% else %}
+            {% else %}
 
-      <h1><a href="/"> Pizza 3point14 </a></h1>
-      <a href="/"> <img class="mv_image" src="../static/images/delish-pizza.jpg" alt="Pizza 3point14"/> </a>
-      {% endif %}
+            <h1><a href="/"> Pizza 3point14 </a></h1>
+            <a href="/"> <img class="mv_image" src="../static/images/delish-pizza.jpg" alt="Pizza 3point14"/> </a>
+            {% endif %}
 
-      <h2>The best pizza pie in the world </h2>
+            <h2>The best pizza   <span style="font-style: italic; font-weight: bold; ">PI </span>  in the world </h2>
       </header>
     
-<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center;  "> 
       <p style="width: align; height: align;"> </p>
 </div>
       {% block body %}

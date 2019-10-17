@@ -7,42 +7,11 @@
 </h2>
 
 
-<div  class="col-lg-3 col-sm-6 "  style="text-align: center; background-color:#E8E8E8"> 
+<div  class="col-lg-3 col-sm-6"  > 
       <p style="width: align; height: align;"> </p>
 </div>
 
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8"> 
-
-<table>
-{%for food in pizza_list %}
-<tr>
-		<th id="category_title" style="font-weight: bold "></th>
-		<th> Small </th>
-		<th> Large </th>
-</tr>
-
-	<script type="text/javascript">
- 		document.getElementById('category_title').innerHTML = "{{food.name}}";
-	</script>
-
-<tr>
-		<td id="pizza_list.name{{food.id}}"> </td>
-		<td id="pizza_list.flavor{{food.id}}"></td>
-		<td id="pizza_list.price{{food.id}}"> </td>
-	</tr>
-	 
-
-	<script type="text/javascript">
- 		document.getElementById('pizza_list.name{{food.id}}').innerHTML = "{{food.flavor}}";
-	 	document.getElementById('pizza_list.flavor{{food.id}}').innerHTML = "{{food.size}}";
-	 	document.getElementById('pizza_list.price{{food.id}}').innerHTML = "{{food.price}}";
-	</script>
-
-{%endfor%}
-
-</table>
-
-
 
 <table> 	
 	 
@@ -54,15 +23,15 @@
 
 	{% for food in regular_pizza_list %}
 	<tr>
-		<td id="reg_pizza_name.{{food.id}}"> </td>
-		<td id="reg_pizza_sm_price.{{food.id}}"></td>
-		<td id="reg_pizza_lg_price.{{food.id}}"> </td>
+		<td id="food_name.{{food.id}}"> </td>
+		<td id="food_sm_price.{{food.id}}"></td>
+		<td id="food_lg_price.{{food.id}}"> </td>
 	</tr>
 
 	<script type="text/javascript">
- 		document.getElementById('reg_pizza_name.{{food.id}}').innerHTML = "{{food.name}}";
-	 	document.getElementById('reg_pizza_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
-	 	document.getElementById('reg_pizza_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+ 		document.getElementById('food_name.{{food.id}}').innerHTML = "{{food.name}}";
+	 	document.getElementById('food_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 	document.getElementById('food_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
 	</script>
 	{% endfor %}
 
@@ -89,8 +58,8 @@
 
 	 
 	<tr>
-		<th> Toppings </th>
-		<th>  </th>
+		<th> Toppings  </th>
+		<th> </th>
 		<th>   </th>
 	</tr>
 	
@@ -108,7 +77,98 @@
  
 	{% endfor %}
 
+
+
+	<tr>
+			<th> Sub </th>
+			<th> Small </th>
+			<th> Large </th>
+	</tr>
+
+	{% for food in subs_list %}
+		<tr>
+			<td id="sfood_name.{{food.id}}"> </td>
+			<td id="sfood_sm_price.{{food.id}}"> </td>
+			<td id="sfood_lg_price.{{food.id}}"></td>
+		</tr>
+		<script type="text/javascript">
+	  		document.getElementById('sfood_name.{{food.id}}').innerHTML = "{{food.name}}";
+		 	document.getElementById('sfood_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+		 	document.getElementById('sfood_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+	 	</script>
+	{% endfor %}
+
+
+	<tr>
+		<th> Pasta </th>
+		<th> (One size)  </th>
+		<th></th>
+	</tr>
+
+{% for food in pasta_list %}
+	<tr>
+		<td id="pfood_name.{{food.id}}"> </td>
+		<td id="pfood_price.{{food.id}}"></td>
+		<td>  </td>
+	</tr>
+
+ 	<script type="text/javascript">
+  		document.getElementById('pfood_name.{{food.id}}').innerHTML = "{{food.name}}";
+ 	 	document.getElementById('pfood_price.{{food.id}}').innerHTML = "{{food.price}}";
+ 	</script>
+
+{% endfor %}
+
+
+	<tr>
+		<th> Salads </th>
+		<th> (One size)    </th>
+		<th>   </th>
+	</tr>
+
+{% for food in salads_list %}
+	<tr>
+		<tr>
+		<td id="safood_name.{{food.id}}"> </td>
+		
+		<td id="safood_price.{{food.id}}"></td>
+		<td> </td>
+	</tr>
+	</tr>
+
+ 	<script type="text/javascript">
+  		document.getElementById('safood_name.{{food.id}}').innerHTML = "{{food.name}}";
+ 	 	document.getElementById('safood_price.{{food.id}}').innerHTML = "{{food.price}}";
+ 	</script>
+
+{% endfor %}
+
+
+<tr>
+		<th> Dinner Platters </th>
+		<th> Small    </th>
+		<th>  Large </th>
+	</tr>
+
+{% for food in dinner_list %}
+	<tr>
+		<tr>
+		<td id="dfood_name.{{food.id}}"> </td>
+		<td id="dfood_sm_price.{{food.id}}"> </td>
+		<td id="dfood_lg_price.{{food.id}}"></td>
+	</tr>
+
+ 	<script type="text/javascript">
+  		document.getElementById('dfood_name.{{food.id}}').innerHTML = "{{food.name}}";
+	 	document.getElementById('dfood_sm_price.{{food.id}}').innerHTML = "{{food.sm_price}}";
+	 	document.getElementById('dfood_lg_price.{{food.id}}').innerHTML = "{{food.lg_price}}";
+ 	</script>
+
+{% endfor %}
+
 </table>
-  
+ 
+
+<h2> <p> <a href="{% url 'online_access' %}"> Click to Order </a> </p> </h2>
 
 {% endblock %}

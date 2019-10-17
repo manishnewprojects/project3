@@ -10,46 +10,26 @@
 html, body {
   height: 100%;
   background-color: lightgrey;
-  padding: 14px;
   text-align: center;
   }
   
- 
-.mv_image {
-    max-width: 100%;
-    height: auto;
-    border-style: double;
-    border-width: 5px; 
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-
-.store_text {
-  max-width: 100%;
-    height: auto;
-     border-style: double;
-    border-width: 5px; 
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
- 
 
 table {
   width: 100%;
   margin: auto;
   table-layout: auto;
+
 }
  
-
-th {
-  border-collapse: collapse;
-  background-color:  skyblue;
-}
 
 th,
-td {
-   border: solid 1px;
+td, tr {
   text-align: left;
+  line-height: 20px
 }
  
+th {
+   background-color:  skyblue;
+   font-weight: bold;
+   font-variant-caps: all;
+}

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<script type="text/javascript">total=0</script>
+ 
+<div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8">
+<h2>Thanks!   </h2>
+ 
+<hr>
+	  
+
+ Final order
+
+ <list>
+	<li id="user"> </li>
+	<li id="time_placed"> </li>
+	<li id="time_ready"> </li>
+	{% for food in final_food_list %}
+		<span id="order.item.{{food.id}}"></span> || <span id="order.price.{{food.id}}"></span><br>
+		<script> 
+			document.getElementById('order.item.{{food.id}}').innerHTML = "{{food.item}}" ; 
+		 	document.getElementById('order.price.{{food.id}}').innerHTML = "{{food.price}}" ; 
+		</script>
+
+	{%endfor%} 
+	
+
+</list> 
+
+
+<h2>yout order will be ready by: <span id="time"></span> </h2>
+
+<script type="text/javascript"> 
+
+	document.getElementById('time_placed').innerHTML = "{{final_order.time_placed}}" ; 
+ 
+
+</script>
+
+<p>
+ 	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
+</p>
+
+ </div>
+
+<div  class="col-lg-3 col-sm-6 "  style="text-align: center; "> 
+      <p style="width: align; height: align;"> </p>
+</div>
+
+
+{% endblock %}

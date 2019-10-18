@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+#from .admin import custom_admin_site
 
 from . import views
- 
+
+admin.site.site_header = "3Point14 Store"
+admin.site.site_title  = "3Point14 Store "
+admin.site.index_title = "Welcome to 3Point14 Store Admin"
+
+admin.site.index_template = 'admin/my_custom_index.html'
+admin.autodiscover()
 
 urlpatterns = [
 
@@ -28,6 +35,8 @@ urlpatterns = [
     path('users/', include('users.urls')),
     path('orders/', include('orders.urls')),
     path('admin/', admin.site.urls),
+    #path('admin/', custom_admin_site.urls),
+
 
  
 ]

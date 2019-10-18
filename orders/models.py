@@ -31,9 +31,12 @@ class Order(models.Model):
 	time_placed = models.DateTimeField(default=timezone.now)
 	total_price	= models.DecimalField(max_digits=5, decimal_places=2)
 	food		= models.ManyToManyField(Food_item)
+
+	class Meta:
+         verbose_name = ">>Click here to see order"
  
 	def __str__(self):
-		return f"{self.user, self.total_price}"
+		return f"{self.user, self.time_placed, self.food, self.total_price}"
 
 class Regular_Pizza(models.Model):
 	name        = models.CharField(max_length=40)
@@ -81,7 +84,7 @@ class Salad(models.Model):
 	price	    = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
 
 	def __str__(self):
-		return f"{self.name} {self.price}"
+		return (f"{self.name}" +","+ f"{self.price}")
 
 class Dinner_Platter(models.Model):
 	name        = models.CharField(max_length=20)

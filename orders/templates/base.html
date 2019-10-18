@@ -5,7 +5,7 @@
 
       <!-- Basic Page Needs -->
       <meta charset="utf-8">
-      <title> Pizza 3point14 </title>
+      <title> Pizza 3Point14 </title>
       <meta name="description" content="Project 3 - CS50W">
       <meta name="author" content="Manish Vaidya">
 
@@ -34,8 +34,8 @@
       <header style="text-align: center;  ">
             
             {%  if request.user.is_authenticated    %}
-            <h1><a href="{% url 'home' %}"> Pizza 3point14 </a></h1>
-            <a href="{% url 'home' %}"> <img class="mv_image" src="../static/images/delish-pizza.jpg" alt="Pizza 3point14"/> </a>
+            <h1><a href="{% url 'home' %}"> Pizza 3Point14 </a></h1>
+            <a href="{% url 'home' %}"> <img class="mv_image" src="../static/images/delish-pizza.jpg" alt="Pizza 3Point14"/> </a>
 
             {% else %}
 
@@ -49,6 +49,9 @@
 <div  class="col-lg-3 col-sm-6 "  style="text-align: center;  "> 
       <p style="width: align; height: align;"> </p>
 </div>
+
+
+
       {% block body %}
       {% endblock %}
  

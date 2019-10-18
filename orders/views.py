@@ -8,11 +8,10 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.http.request import QueryDict, MultiValueDict
 import ast, datetime
+from twilio.rest import Client
 
 
-#from cart.cart import Cart
  
-
 @login_required
 def place_order(request):
 	return render(request, 'place_order.html',
@@ -32,8 +31,6 @@ def logged_out(request):
 
 def online_access(request):
     return render(request, 'online_access.html')
-
-
 
 def view_order(request):
 	total=0
@@ -58,11 +55,9 @@ def final_order(request):
 		f_item.item = citem.item
 		f_item.price = citem.price
 		f_item.save()
-		print("fitem", f_item)
 		order.food.add(f_item)
 
 	order.total_price = total 
-	print("food", order.food.all(), "OFRDE", order)
 	order.save()
 	cart.delete()
 
@@ -74,6 +69,8 @@ def add_to_cart(request):
 		my_user = User.objects.get(username = request.user)
 		order_dict=ast.literal_eval(json.dumps(request.POST))
 		
+		print("RCVD", order_dict)
+
 		food=""
 		price=-1
 		for key, value in dict(order_dict).items():  # ---> dict(query_dict)
@@ -82,7 +79,26 @@ def add_to_cart(request):
 				food=value 
 			else:
 				price=float(value)
+			print("food", food, "value", price)	
 			if price!=-1:
 				cart = Cart(user = my_user, item = food, price = price)
 				cart.save()
+
 		return render(request, 'order_review.html', {'cart': cart})
+
+
+def send_sms(request):
+	# Your Account Sid and Auth Token from twilio.com/console
+	# DANGER! This is insecure. See http://twil.io/secure
+	account_sid = 'AC4a9a7b5771b5e88af33a6311006ca853'
+	auth_token = 'c8491e9dbb0976f320222eb8e42bc832'
+	client = Client(account_sid, auth_token)
+
+	message = client.messages \
+	    .create(
+	         body='Your order is ready! Happy tummy from Pizza 3Point14',
+	         from_='+1 844 980 1314',
+	         to='+1 408-695-3338'
+	     )
+
+	print(message.sid)

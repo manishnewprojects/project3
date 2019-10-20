@@ -19,4 +19,6 @@ urlpatterns = [
 
     path('view_order', views.view_order, name='view_order'),
 
+    path('send_sms', views.send_sms, name='send_sms')
+
 ]

@@ -11,7 +11,7 @@
 ***********************************************/
 var food_order=[], prev_food=""
 
-function checkboxlimit(checkgroup, limit){
+function checkboxlimit(checkgroup, limit, pizzatype){
 	var checkgroup=checkgroup
 	var limit=limit
 
@@ -20,6 +20,7 @@ function checkboxlimit(checkgroup, limit){
 		var checkedcount=0
 		for (var i=0; i<checkgroup.length; i++)
 			checkedcount+=(checkgroup[i].checked)? 1 : 0
+
 		if (checkedcount>limit){
 			alert("You can only select a maximum of "+limit+" toppings")
 			food_order.pop()
@@ -38,10 +39,45 @@ function checkboxlimit(checkgroup, limit){
 
  }
  
+ function precheck_for_special() {
+
+document.getElementById('t_name.1').innerHTML = "(SPECIAL) Pepperoni"
+document.getElementById('t_name.3').innerHTML = "(SPECIAL) Mushrooms"
+document.getElementById('t_name.7').innerHTML = "(SPECIAL) Pineapple"
+document.getElementById('t_name.12').innerHTML = "(SPECIAL) Spinach"
+document.getElementById('t_name.13').innerHTML = "(SPECIAL) Artichoke"
+
+$( "input[value='+topping: Pepperoni']" ).prop({
+  checked: true
+});
+ 
+$( "input[value='+topping: Mushrooms']" ).prop({
+  checked: true
+});
+
+$( "input[value='+topping: Pineapple']" ).prop({
+  checked: true
+});
+
+$( "input[value='+topping: Spinach']" ).prop({
+  checked: true
+});
+
+$( "input[value='+topping: Artichoke']" ).prop({
+  checked: true
+});
+
+$( "input[type='checkbox']" ).prop({
+  disabled: true
+});
+
+}
 
 function foodtype(optfood) {
 
 	var chars = optfood.split(',');
+
+	
 	
 	if ( (chars[0]==prev_food) || (chars[0].includes("Pizza")) ) {
 		food_order.pop()
@@ -50,8 +86,13 @@ function foodtype(optfood) {
  	food_order.push({"food":chars[0]+" "+chars[1],
  	"price":chars[2]
 	})
+
  	prev_food = chars[0]
-	checkboxlimit(document.forms.world.opttoppings, chars[3])
+ 	if (chars[1]=="Special"){
+ 			precheck_for_special()
+		}
+
+	checkboxlimit(document.forms.alltoppings.opttoppings, chars[3], chars[1])
  
  
 }
@@ -132,9 +173,15 @@ function foodtype(optfood) {
 		<th>  </th>
 		<th>   </th>
 	</tr>
+	<script type="text/javascript">
+				
 
+		$( "input[type='checkbox']" ).prop({
+		  disabled: true
+		});
+	</script>
 
-	<form id="world" name="world">
+	<form id="alltoppings" name="alltoppings">
 	{% for food in topping_list %}
 	<tr>
 		<td > </td>
@@ -293,20 +340,9 @@ function foodtype(optfood) {
 }
 </script>
 
- 
-<hr>
-	   
-
-
-<p>
- 	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
-</p>
-
- </div>
-
-<div  class="col-lg-3 col-sm-6 "  style="text-align: center;"> 
-      <p style="width: align; height: align;"> </p>
-</div>
-
 
 {% endblock %}
+
+
+
+

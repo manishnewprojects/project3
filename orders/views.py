@@ -33,17 +33,20 @@ def online_access(request):
     return render(request, 'online_access.html')
 
 def view_order(request):
+
+
 	total=0
 	cart = Cart.objects.filter(user = request.user)
 	for citem in cart:
 		total += citem.price
+
 	return render(request, 'order_review.html', {'cart_list': cart, 'cart_total': total})
 
 def final_order(request):
 	total=0
 	my_user = User.objects.get(username = request.user)
 
-	order=Order.objects.create(user = my_user, time_placed="1999-01-01 12:12", total_price=0)
+	order=Order.objects.create(user = my_user, time_placed=datetime.datetime.now(), total_price=0)
 	f_item=Food_item.objects.create()
  
 	cart = Cart.objects.filter(user = my_user)
@@ -69,8 +72,6 @@ def add_to_cart(request):
 		my_user = User.objects.get(username = request.user)
 		order_dict=ast.literal_eval(json.dumps(request.POST))
 		
-		print("RCVD", order_dict)
-
 		food=""
 		price=-1
 		for key, value in dict(order_dict).items():  # ---> dict(query_dict)
@@ -88,17 +89,20 @@ def add_to_cart(request):
 
 
 def send_sms(request):
-	# Your Account Sid and Auth Token from twilio.com/console
-	# DANGER! This is insecure. See http://twil.io/secure
+	 
 	account_sid = 'AC4a9a7b5771b5e88af33a6311006ca853'
 	auth_token = 'c8491e9dbb0976f320222eb8e42bc832'
 	client = Client(account_sid, auth_token)
+	 
 
+	phone_number = request.POST.get('phone_number')
+ 
 	message = client.messages \
 	    .create(
-	         body='Your order is ready! Happy tummy from Pizza 3Point14',
-	         from_='+1 844 980 1314',
-	         to='+1 408-695-3338'
+	    	body='Your order is ready! Happy tummy from Pizza 3Point14',
+	    	from_='+1 844 980 1314',
+	    	to=phone_number
 	     )
 
-	print(message.sid)
+ 
+	return render(request, 'thanks.html', {'sms_success': message.sid})

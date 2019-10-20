@@ -54,7 +54,7 @@ class Sicilian_Pizza(models.Model):
 	extras		= models.DecimalField(max_digits=5, decimal_places=0, blank=True, null=True)
 
 	def __str__(self):
-		return (f"{self.__class__.__name__}"+","+f"{self.name}")
+		return (f"Sicilian Pizza"+","+f"{self.name}")
 
 
 class Topping(models.Model):

@@ -2,9 +2,17 @@
 
 {% block body %}
 
-<script type="text/javascript">total=0</script>
+<script type="text/javascript">total=0, sms_success='' </script>
  
 <div class="col-lg-6 col-sm-6" style="text-align: center; background-color:#E8E8E8">
+{% if sms_success  %}
+
+
+<h3>Thanks! We will message you when the pizza is ready - Happy tummy from Pizza 3Point14! </h3>
+
+
+{% else %}
+
 <h2>Thanks!   </h2>
  
 <hr>
@@ -13,10 +21,8 @@
  Final order
 
  <list>
-	<li id="user"> </li>
-	<li id="time_placed"> </li>
-	<li id="time_ready"> </li>
-	{% for food in final_food_list %}
+ 	<li id="time_placed"> </li>
+ 	{% for food in final_food_list %}
 		<span id="order.item.{{food.id}}"></span> || <span id="order.price.{{food.id}}"></span><br>
 		<script> 
 			document.getElementById('order.item.{{food.id}}').innerHTML = "{{food.item}}" ; 
@@ -29,24 +35,32 @@
 </list> 
 
 
-<h2>yout order will be ready by: <span id="time"></span> </h2>
+
+<h3>Your order will be ready in about 25 minutes </h3>
+
+<h3> Exclusive Pizza 3Point14 feature </h3>
+<h3> Enter cell number to get a text message when the pizza is ready!  
+
+<form action="{% url 'send_sms' %}" method="post">
+    <label for="phone_number">Enter number: </label>
+    <input id="phone_number" type="text" name="phone_number" value="Phone#">
+    <input type="submit" value="Let me know!">
+</form>
+
+
+</h3>
+
 
 <script type="text/javascript"> 
 
 	document.getElementById('time_placed').innerHTML = "{{final_order.time_placed}}" ; 
- 
+  
 
 </script>
 
-<p>
- 	<h4> <a href="{% url 'logout' %}"> Sayonara! logout</a> </h4>
-</p>
-
- </div>
-
-<div  class="col-lg-3 col-sm-6 "  style="text-align: center; "> 
-      <p style="width: align; height: align;"> </p>
-</div>
+ 
+{% endif %}
+ 
 
 
 {% endblock %}

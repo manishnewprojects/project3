@@ -90,8 +90,10 @@ def add_to_cart(request):
 
 def send_sms(request):
 	 
-	account_sid = 'AC4a9a7b5771b5e88af33a6311006ca853'
-	auth_token = 'c8491e9dbb0976f320222eb8e42bc832'
+	 
+	account_sid = get_env_variable('TW_ACCOUNT_SID')
+	auth_token = get_env_variable('TW_AUTH_TOKEN')
+
 	client = Client(account_sid, auth_token)
 	 
 
